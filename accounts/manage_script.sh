@@ -21,7 +21,19 @@ esxall()
  cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/ESX
  pwsh ./ESXI-testdrive-all-resetpods.ps1
 }
+
+setupesx()
+{
+ cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/ESX
+ pwsh ./ESXI-testdrive-Build1.ps1
+ pwsh ./ESXI-testdrive-Build2.ps1
+}
 	
+setuppsm()
+{
+ cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/PSM
+ ./build.sh
+} 
 
 psmpod()
 {
@@ -116,14 +128,24 @@ clear
   (by pod numbers)
     
   "
+  echo -e "\e[1;33mInitial Scripts\e[0m"
   
+  echo "   
+  
+  Setup and build the first ESX config     -  o
+  (networking/users/vrf/pods, etc - one off process)
+  
+  Setup and build the first PSM config     -  p
+  (networking/users/vrf/pods, etc - one off process)
+    
+  "
+    
   echo -e "\e[1;33mSingle account or single pod\e[0m"
   
   echo " 	 
-	
+
 	 a or b or c or d 
-	 
-	 or 
+
   "
   echo -e "\e[1;33mFull System Reset \e[0m"
   
@@ -136,9 +158,14 @@ clear
   echo " 	 
 	 
 	 m or n
-	  
-	 or
-	 x for exit "
+	 "
+  echo -e "\e[1;33mInital setup \e[0m"
+  
+  echo " 	 
+	 
+	 o or p
+	 
+	 or x for exit "
 	read x
   x=${x,,}
   
@@ -184,6 +211,12 @@ clear
 		echo "Enter the pod number"
 		read pod
 		expiredpod  $pod
+		
+		elif [  $x ==  "o" ]; then
+			setupesx
+		
+		elif [  $x ==  "p" ]; then
+			setuppsm
 		
 		elif [  $x ==  "x" ]; then
 				break
