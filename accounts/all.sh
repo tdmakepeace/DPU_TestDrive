@@ -5,7 +5,7 @@
 vmware()
 {
 	
-	cd /pensandotools/PSM_Test_Drive_Light/accounts/
+	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/accounts/
 
 	pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 1
 	pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 2
@@ -40,7 +40,7 @@ curl -u elastic:changeme -X POST "http://localhost:9200/_security/user/vrf10_use
 
 psm()
 {
-	cd /pensandotools/PSM_Test_Drive_Light/PSM/PythonScripts/
+	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/PSM/PythonScripts/
 
 sleep 1
 python3 user.py ../CSV_example/user.csv

@@ -2,6 +2,18 @@
 
 cd PythonScripts
 
+file="logindetails.py"
+
+if [ ! -e "$file" ]; then
+echo "PSM_IP = '"$PSM_URL"'
+username = '"$PSM_USER"'
+password = '"$PSM_PASSWORD"'
+		" > $file
+		
+sleep 1
+fi
+
+
 if [ -z "$1" ]; then
 	
 		echo "Enter the pod number"

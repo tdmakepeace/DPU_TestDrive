@@ -9,16 +9,9 @@ cd PythonScripts
 file="logindetails.py"
 
 if [ ! -e "$file" ]; then
-		echo "What is the PSM host IP"
-		read psm
-		echo "enter the username for PSM (admin account)"
-		read userpsm
-		echo "enter the password"	
-		read passpsm
-		
-		echo "PSM_IP = 'https://"$psm"'
-username = '"$userpsm"'
-password = '"$passpsm"'
+echo "PSM_IP = '"$PSM_URL"'
+username = '"$PSM_USER"'
+password = '"$PSM_PASSWORD"'
 		" > $file
 		
 sleep 1

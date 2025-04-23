@@ -65,26 +65,30 @@ download()
 		cd 	$DPUTD_INSTALL_DIR
 		
 		
-		`git branch --all | cut -d "/" -f3 > gitversion.txt`
-		echo "choose a branch "
-		git branch --all | cut -d "/" -f3 |grep -n ''
-
-		echo " Select the line number
-
-		"
-		read x
-		testdrivever=`sed "$x,1!d" gitversion.txt`
-		git checkout  $testdrivever
-		echo $testdrivever >installedversion.txt
+#		`git branch --all | cut -d "/" -f3 > gitversion.txt`
+#		echo "choose a branch "
+#		git branch --all | cut -d "/" -f3 |grep -n ''
+#
+#		echo " Select the line number
+#
+#		"
+#		read x
+#		testdrivever=`sed "$x,1!d" gitversion.txt`
+#		git checkout  $testdrivever
+#		echo $testdrivever >installedversion.txt
 
 		git pull
 		
 		cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR
+		cd accounts
+		chmod +x *.sh
+		cd ../axis
+		chmod +x *.sh
+		cd ../PSM
 		chmod +x *.sh
 		cd 
 		
-		ln -s /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/manage_script manage_script
-		
+		ln -s /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/accounts/manage_script.sh manage_script.sh
 
 	}
 
@@ -136,75 +140,96 @@ basesetup()
 instruction()
 {
 	
-	echo """
+	
+	-e "\e[1;33mNOTE:\e[0m"
+	echo -e """
 	To run the TestDrive code you need to be running in Powershell.
 	To run powershell you need to run the following command (recommend a second terminal window).
 	
-	\"pwsh\" 
+	\e[1;33m pwsh \e[0m
 	
 	Once in Powershell you need to import the PowerCli-Examples repo to be able to login to the the Vcentre server enviroment.
 	
 	to do that once in powershell in a second terminal screen copy the following lines.
 		
-		\" 
+		\e[1;33m
 
-		cd /pensandotools/PSM_Test_Drive_Light/ESX
+		cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/ESX
 		Install-Module -Name VMware.PowerCLI -Confirm:\$false
 		cd \"PowerCLI-Example-Scripts/Modules/VMware.vSphere.SsoAdmin\"
 		Import-Module ./VMware.vSphere.SsoAdmin.psd1 	
 		cd ../../../
 		
-		\"
-		
-		You will need to import the unsigned module everytime 
-		\" 
-
-		cd \"PowerCLI-Example-Scripts/Modules/VMware.vSphere.SsoAdmin\"
-		Import-Module ./VMware.vSphere.SsoAdmin.psd1 
-		cd ../../../
-		
-		\"
-				
+		\e[0m
 		
 	
 	"""
+	
 	read -p "	Select option (A) on the install 
 	
-	once the install complete and back at the command prompt and hit enter on this screen"
+	once the install complete and back at the command prompt and hit enter this screen for the next."
+	
+	echo -e """
+		
+		The script are ready for the DPU TestDrive.
+		\e[1;33mNow to set up the enviromental variables. You need to have access to the Vcenter Admin at this stage \e[0m
+			
+		You first need to login to the Vcenter server and deploy a base image OVA that can be cloned.
+		In our example a image has been prepared in the /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/VMimage folder.
+		
+		The image name shoud upload as an image in the root of the server. 
+		The name of the VMimage will be asked for on the next screen
+				
+		"""
+	
+	read -p "	Once complete hit enter"
+	
 	clear
 	
-		echo """
+		echo -e """
 		
-		Now to set up the enviromental variables. You need to have access to the Vcenter Admin at this stage
+		\e[1;33mNow to set up the enviromental variables. You need to have access to the Vcenter Admin at this stage \e[0m
 		or access to the Vcentre server. run from the powershell terminal - BuildVaribles.ps1
+		located in the \e[0;31m/$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/ESX \e[0m folder
 		
-		Vcenter Server IP eg. vcenter.testdrive.com or 10.10.10.10
-		Vcenter Administrator eg administrator@vsphere.local
-		Vcenter password
-		ESXi host IP eg. 192.168.102.101
-		Vmware image to be cloned eg. TinyVMDeploy (this is in the /pensandotools/PSM_Test_Drive_Light/ folder)
-		Vmware Disk for the images to be stored eg. DL360SSD
-		Vmware Vcenter Domain eg. Makepeacehouse
-		The name of the distributed switch you want to create eg. VRF-Demo
-		The of the TAG catogary to be used for the workload grouping. eg. Demo
-		The of the TAG catogary to be used for the VRF grouping eg. VRFs
-		The number of VRFs you want to create eg. 3
-		The number of workloads per VRF you want to create eg. 3 or 5 recommended based on resources.
+		The following information will be asked for
+		
+
+		\e[0;31mVcenter Server IP \e[0meg. vcenter.testdrive.com or 10.10.10.10
+		\e[0;31mVcenter Administrator \e[0meg administrator@vsphere.local
+		\e[0;31mVcenter password\e[0m
+		\e[0;31mESXi host IP \e[0meg. 192.168.102.101
+		\e[0;31mVmware image to be cloned \e[0meg. TinyVMDeploy (this is in the /pensandotools/PSM_Test_Drive_Light/ folder)
+		\e[0;31mVmware Disk for the images to be stored \e[0meg. DL360SSD
+		\e[0;31mVmware Vcenter Domain \e[0meg. Makepeacehouse
+		\e[0;31mThe name of the distributed switch you want to create \e[0meg. VRF-Demo
+		\e[0;31mThe of the TAG catogary to be used for the workload grouping. \e[0meg. Demo
+		\e[0;31mThe of the TAG catogary to be used for the VRF grouping \e[0meg. VRFs
+		\e[0;31mThe number of VRFs you want to create \e[0meg. 3
+		\e[0;31mThe number of workloads per VRF you want to create \e[0meg. 3 or 5 recommended based on resources.
+
+		\e[0m
 
 
-
-		\" 
+	  \e[1;33m
 					
 		BuildVaribles.ps1
 
-		\"
+		\e[0m
 		
 	
 	"""
+		
 	read -p "Once complete hit enter"
 	
+echo -e "\e[1;33m
+
+You can now manage via the ./manage_scripts.sh file
+		\e[0m"
+		
+	read -p "Hit enter to get to the command prompt"
 	
-	}	
+}	
 	
 
 runnotes()
@@ -631,7 +656,7 @@ setup_bashrc_sourcing() {
 
 
 configure_git_repo() {
-  read -p "Enter the gitrepo eg: https://github.com/tdmakepeace/DSM_TestDrive : " git_repo
+  read -p "Enter the gitrepo eg: https://github.com/tdmakepeace/DPU_TestDrive : " git_repo
   update_env_var "GIT_REPO" "$git_repo"
 
 }
@@ -683,7 +708,7 @@ configure_axis_key() {
 	echo "Enter the AXIS API key refer to the install doc to get :"
   echo "Make sure no spaces or CR are included : "
   read -p "Only required if using API, ask you AMD SE to help :" api_key
-  update_env_var "AXIS_Key" "$api_key"
+  update_env_var "AXIS_KEY" "$api_key"
 }
 
 
@@ -701,18 +726,18 @@ verify_environment() {
   source "$HOME/.bashrc.local"
 
   echo -e "\nCurrent environment variables:"
-  echo "ROOT_FOLDER=$ROOT_DIR"
-  echo "DPUTD_INSTALL_DIR=$DPU_DIR"
-  echo "PSM_IP=$PSM_IP"
+  echo "ROOT_INSTALL_DIR=$ROOT_INSTALL_DIR"
+  echo "DPUTD_INSTALL_DIR=$DPUTD_INSTALL_DIR"
+  # echo "PSM_IP=$PSM_IP"
   echo "PSM_URL=$PSM_URL"
   echo "NODE_IP=$NODE_IP"
   echo "PSM_USER=$PSM_USER"
   echo "GIT_REPO=$GIT_REPO"
   echo "PSM_PASSWORD=*******" # Don't display the actual password
-  if [ ! -z "$API_KEY" ]; then
+  if [ ! -z "$AXIS_KEY" ]; then
     echo "AXIS_KEY=*******" # Don't display the actual cookie
   fi
-  echo "AXIS_WORKGROUP=$API_WG"
+  echo "AXIS_WORKGROUP=$AXIS_WORKGROUP"
 
 
   echo -e "\nAre these values correct? (y/n): "
@@ -721,27 +746,27 @@ verify_environment() {
   if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
     echo "Which variable would you like to update?"
     echo "1. DPUTD_INSTALL_DIR"
-    echo "2. PSM_IP"
-    echo "3. PSM_URL"
-    echo "4. NODE_IP"
-    echo "5. PSM_USER"
-    echo "6. PSM_PASSWORD"
-    echo "7. AXIS_KEY"
-    echo "8. AXIS_WORKGROUP"
-    echo "9. GIT_REPO"
+    # echo "2. PSM_IP"
+    echo "2. PSM_URL"
+    echo "3. NODE_IP"
+    echo "4. PSM_USER"
+    echo "5. PSM_PASSWORD"
+    echo "6. AXIS_KEY"
+    echo "7. AXIS_WORKGROUP"
+    echo "8. GIT_REPO"
     echo "10. All of them"
     read -p "Enter your choice (1-5): " choice
 
     case $choice in
       1) configure_root_dir && configure_dpu_dir ;;
-      2) configure_psm_ip ;;
-      3) configure_psm_url ;;
-      4) get_network_interfaces && select_interface ;;
-      5) configure_psm_user ;;
-      6) configure_psm_password ;;
-      7) configure_axis_key ;;
-      8) configure_axis_workgroup ;;
-      9) configure_git-repo ;;
+      # 2) configure_psm_ip ;;
+      2) configure_psm_url ;;
+      3) get_network_interfaces && select_interface ;;
+      4) configure_psm_user ;;
+      5) configure_psm_password ;;
+      6) configure_axis_key ;;
+      7) configure_axis_workgroup ;;
+      8) configure_git-repo ;;
       10) 
          configure_root_dir 
          configure_dpu_dir 
@@ -771,7 +796,7 @@ testcode()
 		Space for testing
 					"
 
-					enviroment
+					verify_environment
 					
 }
 
@@ -848,12 +873,11 @@ This should be a one off process do not repeat unless you have cancelled it for 
 				  
 		elif [  $x ==  "i" ]; then
 					instruction
-
-		elif [  $x ==  "E" ]; then
+					break
+		elif [  $x ==  "e" ]; then
 					enviroment
 					read -p "Logout and then backin to use the enviroment variables."
 					break
-
 		elif [  $x ==  "r" ]; then
 					runnotes
 					

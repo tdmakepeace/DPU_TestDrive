@@ -13,12 +13,10 @@
 
 
 ###	 Only thing to touch without Toby Makepeace support #####
-file_path="axislogaudit.txt"
-basefolder="axis"
-rootfolder="pensandotools"
+file_path="/$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/axislogaudit.txt"
 
 ### api token valid for 1 year, and will need to be refreshed. ###
-apitoken=$AXIS_Key
+apitoken=$AXIS_KEY
 groupid=$AXIS_WORKGROUP   ## only users with this group will be deleted ##
 
 
@@ -43,12 +41,12 @@ user="vrf$1_user"
 echo $user
 
 
-	cd /pensandotools/PSM_Test_Drive_Light/PSM   
+	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/PSM   
  ./rebuildpod.sh $pod & >/dev/null
 	
 ### reset the VM space ####
 
- cd /pensandotools/PSM_Test_Drive_Light/ESX
+ cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/ESX
  pwsh ./ESXI-testdrive-resetpod.ps1	$pod & >/dev/null
  
 
@@ -139,12 +137,12 @@ echo $pod
 
 ### clear the PSM config to defualt ####
 
-	cd /pensandotools/PSM_Test_Drive_Light/PSM   
+	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/PSM   
  ./rebuildpod.sh $pod
 	
 ### reset the VM space ####
 
- cd /pensandotools/PSM_Test_Drive_Light/ESX
+ cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/ESX
  pwsh ./ESXI-testdrive-resetpod.ps1	$pod
  
 

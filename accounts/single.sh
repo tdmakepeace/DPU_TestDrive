@@ -9,7 +9,7 @@ vmware()
 #	echo "Parameter #1 is $1"
 #	echo "Parameter #2 is $2"
 	
-	cd /pensandotools/PSM_Test_Drive_Light/accounts/
+	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/ESX/
 
 	pwsh ./ESXI-Password.ps1 -pass "$1"  -vrf $2
 
@@ -46,7 +46,7 @@ JSON_STRING=$( jq -n \
 
 psm()
 {
-	cd /pensandotools/PSM_Test_Drive_Light/PSM/PythonScripts/
+	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/PSM/PythonScripts/
 
 		user="vrf"$2"_user"
 

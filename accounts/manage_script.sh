@@ -5,67 +5,67 @@
 
 axis()
 {
-		cd /pensandotools/PSM_Test_Drive_Light/axis/
+		cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/axis/
 		./TestDrive_axis_users.sh
 }
 	
 esxpod()
 {
- cd /pensandotools/PSM_Test_Drive_Light/ESX
+ cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/ESX
  pwsh ./ESXI-testdrive-resetpod.ps1
 }
 	
 	
 esxall()
 {
- cd /pensandotools/PSM_Test_Drive_Light/ESX
+ cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/ESX
  pwsh ./ESXI-testdrive-all-resetpods.ps1
 }
 	
 
 psmpod()
 {
- cd /pensandotools/PSM_Test_Drive_Light/PSM   
+ cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/PSM   
  ./rebuildpod.sh
  
 }
 		
 psmall()
 {
- cd /pensandotools/PSM_Test_Drive_Light/PSM
+ cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/PSM
  ./rebuild.sh
  
 }		
 
 singlepassword()
 {
- cd /pensandotools/PSM_Test_Drive_Light/accounts
-  /pensandotools/PSM_Test_Drive_Light/accounts/single.sh
+ cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/accounts
+  ./single.sh
 }
 
 
 defpass()
 {
-	 cd /pensandotools/PSM_Test_Drive_Light/accounts
+	 cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/accounts
   ./all.sh
 }
 
 ranpass()
 {
-	 cd /pensandotools/PSM_Test_Drive_Light/accounts
+	 cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/accounts
    ./random.sh
 }
 		
 expireduser()
 {
-	cd /pensandotools/PSM_Test_Drive_Light/axis/
+	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/axis/
 	./TestDrive_axis_sessionend.sh
  
 }  		
 
 expiredpod()
 {
-	cd /pensandotools/PSM_Test_Drive_Light/axis/
+	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/axis/
 	./TestDrive_axis_sessionend.sh $1
  
 }  		

@@ -13,12 +13,10 @@
 
 
 ###	 Only thing to touch without Toby Makepeace support #####
-file_path="axislogaudit.txt"
-basefolder="axis"
-rootfolder="pensandotools"
+file_path="/$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/axislogaudit.txt"
 
 ### api token valid for 1 year, and will need to be refreshed. ###
-apitoken=$AXIS_Key
+apitoken=$AXIS_KEY
 groupid=$AXIS_WORKGROUP   ## only users with this group will be deleted ##
 
 

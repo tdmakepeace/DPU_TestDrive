@@ -9,7 +9,7 @@ Write-Host $Param1
 
 
 
-cd /pensandotools/PSM_Test_Drive_Light/ESX
+# cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/ESX
 Install-Module -Name VMware.PowerCLI -Confirm:$false
 cd "PowerCLI-Example-Scripts/Modules/VMware.vSphere.SsoAdmin"
 Import-Module ./VMware.vSphere.SsoAdmin.psd1

@@ -2,9 +2,16 @@
 
 cd PythonScripts
 
+file="logindetails.py"
 
-cd PythonScripts
-
+if [ ! -e "$file" ]; then
+echo "PSM_IP = '"$PSM_URL"'
+username = '"$PSM_USER"'
+password = '"$PSM_PASSWORD"'
+		" > $file
+		
+sleep 1
+fi
 
 python3 networks.py ../CSV_example/networks.csv
 python3 role.py ../CSV_example/role.csv
