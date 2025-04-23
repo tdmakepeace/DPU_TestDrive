@@ -10,16 +10,6 @@
 ### The script should be run as the first user create as part of the install, and uses SUDO for the deployment process.
 
 
-
-
-
-###	
-
-
-# gitlocation="https://github.com/tdmakepeace/DSM_TestDrive"
-
-
-###
 	
 rebootserver()
 {
@@ -65,8 +55,8 @@ download()
 		cd /
 		
 		if [ ! -d "$rootfolder" ]; then
-				sudo mkdir $rootfolder
-  			chown $real_user:$real_user $rootfolder
+				sudo mkdir $ROOT_INSTALL_DIR
+  			chown $real_user:$real_user $ROOT_INSTALL_DIR
 		fi
 
 
@@ -861,7 +851,8 @@ This should be a one off process do not repeat unless you have cancelled it for 
 
 		elif [  $x ==  "E" ]; then
 					enviroment
-					pause
+					read -p "Logout and then backin to use the enviroment variables."
+					break
 
 		elif [  $x ==  "r" ]; then
 					runnotes
