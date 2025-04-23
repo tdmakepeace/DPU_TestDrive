@@ -1,0 +1,2 @@
+name,rolebinding,user,vrf,vlanpre,policypre
+vrf1role,vrf1role_binding,vrf1_user,vrf1,vlan1,vrf1_vlan1
