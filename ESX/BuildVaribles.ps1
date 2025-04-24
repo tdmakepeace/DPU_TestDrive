@@ -20,7 +20,7 @@ If this needs explaining, you should not be editing the file.
 
 
 
-$vcenter_server = Read-Host "Enter Vcenter Server IP eg. vcenter.testdrive.com or 10.10.10.10"
+$vcenter_server = Read-Host "Enter Vcenter Server IP eg. vcenter.testdrive.com or 192.168.102.102"
 $vcenter_user = Read-Host "Enter Vcenter Administrator eg administrator@vsphere.local"
 #### this is the line to comment out if you do not want to store the password in the TestDrive.ps1
 $vcenter_pwd = Read-Host "Enter Vcenter password"
