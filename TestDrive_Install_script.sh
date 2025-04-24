@@ -87,6 +87,9 @@ download()
 		chmod +x *.sh
 		cd 
 		
+		if [ -e "manage_script.sh" ]; then
+		 rm manage_script.sh
+		fi
 		ln -s /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/accounts/manage_script.sh manage_script.sh
 
 	}
@@ -313,7 +316,7 @@ esxnotes()
 				The output is TestDrive.ps1, that can be manaual edited rather than re-running the script.
 				It should only be hosted in a secure enviroment.
 				
-				Vcenter Server IP eg. vcenter.testdrive.com or 10.10.10.10
+				Vcenter Server IP eg. vcenter.testdrive.com or 192.168.102.102
 				Vcenter Administrator eg administrator@vsphere.local
 				Vcenter password
 				ESXi host IP eg. 192.168.102.101
@@ -510,9 +513,10 @@ enviroment()
 	echo "All environment variables are now set in your current shell."
 	echo
 	echo -e "\e[1;33mNOTE:\e[0m"
-	echo -e "\e[1;33mYou must log out and log back in for the environment changes to take affect. Once you log back in, you can start using the manage script\e[0m"
-	echo
-	echo "To start run the tools, run the following command:"
+	echo -e "\e[1;33mYou must log out and log back in for the environment changes to take affect. Once you log back in, you can start run the next section of the script\e[0m"
+	echo -e "\e[0;31m./TestDrive_Install_script.sh\e[0m"
+	echo ""
+	echo "To start running the management tools once deployment complete, run the following command:"
 	echo "  ./manage_script"
 	echo "============================================="
 					

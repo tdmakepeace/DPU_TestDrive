@@ -26,7 +26,9 @@ setupesx()
 {
  cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/ESX
  pwsh ./ESXI-testdrive-Build1.ps1
+ addintdelay
  pwsh ./ESXI-testdrive-Build2.ps1
+ 
 }
 	
 setuppsm()
@@ -81,6 +83,49 @@ expiredpod()
 	./TestDrive_axis_sessionend.sh $1
  
 }  		
+
+addintdelay()
+{
+  while true ;
+    do
+		clear
+	echo -e "\e[0;31mVMware Setup\e[0m"
+	echo -e "
+	Please login to the Vcenter server and complete the following actions. 
+	
+\e[1;33m1. Upload the base image you want to use for the enviroment\e[0m
+		In our example you will find a example image to work from in the VMimage folder.
+		
+		\e[0;31mTinyCoreBash.ova \e[0m
+		
+	The name of the uploaded VMimage should be: \e[1;33mTinyVMDeploy\e[0m
+	Or the name you referenced in the BuildVaribles.ps1 process. (TinyVMDeploy is the example used)
+	
+\e[1;33m2. Attach the host to the VRF-Demo distributed switch\e[0m
+	Please refer the the DPU TestDrive Deployment document, or your AMD Pensando SE.
+		
+		"
+	read -p "hit enter once you have confirmed the network is attached and image is uploaded"
+  echo ""
+  echo "Enter 'C' to confirm :"
+  read x
+    x=${x,,}
+    if [  $x ==  "c" ]; then
+				break
+  	else
+    echo "Please complete the task first"
+    read -p ""
+  	fi
+  done
+}
+
+gitrefesh()
+{
+	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/
+	git pull
+	read -p "Repo status is updated - enter to continue"
+}
+
 
 
 while true ;
@@ -137,6 +182,8 @@ clear
   
   Setup and build the first PSM config     -  p
   (networking/users/vrf/pods, etc - one off process)
+  
+  Refesh the gitrepo                       - r
     
   "
     
@@ -163,7 +210,7 @@ clear
   
   echo " 	 
 	 
-	 o or p
+	 o or p or r
 	 
 	 or x for exit "
 	read x
@@ -218,6 +265,11 @@ clear
 		elif [  $x ==  "p" ]; then
 			setuppsm
 		
+		elif [  $x ==  "r" ]; then
+			gitrefesh
+		
+		elif [  $x ==  "q" ]; then
+				break
 		elif [  $x ==  "x" ]; then
 				break
 
