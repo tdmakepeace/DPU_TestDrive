@@ -56,7 +56,7 @@ download()
 		
 		if [ ! -d "$rootfolder" ]; then
 				sudo mkdir $ROOT_INSTALL_DIR
-  			chown $real_user:$real_user $ROOT_INSTALL_DIR
+  			sudo chown $real_user:$real_user $ROOT_INSTALL_DIR
 		fi
 
 
@@ -65,18 +65,17 @@ download()
 		cd 	$DPUTD_INSTALL_DIR
 		
 		
-#		`git branch --all | cut -d "/" -f3 > gitversion.txt`
-#		echo "choose a branch "
-#		git branch --all | cut -d "/" -f3 |grep -n ''
-#
-#		echo " Select the line number
-#
-#		"
-#		read x
-#		testdrivever=`sed "$x,1!d" gitversion.txt`
-#		git checkout  $testdrivever
-#		echo $testdrivever >installedversion.txt
+		`git branch --all | cut -d "/" -f3 > gitversion.txt`
+		echo "choose a branch "
+		git branch --all | cut -d "/" -f3 |grep -n ''
 
+		echo " Select the line number (but not line with the *)
+
+		"
+		read x
+		testdrivever=`sed -n "$xp" gitversion.txt`
+		git checkout  $testdrivever
+		echo $testdrivever >installedversion.txt
 		git pull
 		
 		cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR
@@ -141,7 +140,7 @@ instruction()
 {
 	
 	
-	-e "\e[1;33mNOTE:\e[0m"
+	echo -e "\e[0;31mNOTE:\e[0m"
 	echo -e """
 	To run the TestDrive code you need to be running in Powershell.
 	To run powershell you need to run the following command (recommend a second terminal window).
@@ -182,7 +181,7 @@ instruction()
 				
 		"""
 	
-	read -p "	Once complete hit enter"
+	read -p "	Hit enter, once you have access to the VM-admin"
 	
 	clear
 	
@@ -195,7 +194,7 @@ instruction()
 		The following information will be asked for
 		
 
-		\e[0;31mVcenter Server IP \e[0meg. vcenter.testdrive.com or 10.10.10.10
+		\e[0;31mVcenter Server IP \e[0meg. vcenter.testdrive.com or 192.168.102.102
 		\e[0;31mVcenter Administrator \e[0meg administrator@vsphere.local
 		\e[0;31mVcenter password\e[0m
 		\e[0;31mESXi host IP \e[0meg. 192.168.102.101
@@ -213,7 +212,7 @@ instruction()
 
 	  \e[1;33m
 					
-		BuildVaribles.ps1
+		./BuildVaribles.ps1
 
 		\e[0m
 		
@@ -227,12 +226,14 @@ echo -e "\e[1;33m
 You can now manage via the ./manage_scripts.sh file
 		\e[0m"
 		
-	read -p "Hit enter to get to the command prompt"
-	
+	read -p "Hit enter to access the script or return to the command prompt"
+	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/
+	cd accounts
+	./manage_script.sh
 }	
 	
 
-runnotes()
+esxnotes()
 {
 	
 		echo """
@@ -399,13 +400,24 @@ runnotes()
 psmnotes()
 {
 		echo """
-		The following notes will take you through the setup and clean down scripts for PSM.
-		The scripts are based on the fact you have already set up the CX and PSM for base functionality.
+		The following notes will take you through the setup and clean down scripts for PSM if you want to 
+		do thing manaully, but the manage_script.sh calls all the scripts you need.
+		The scripts are based on the fact you have already set up the CX and PSM for base functionality
 		and is focussed on the pod build and resets.
 			
 		The first thing you need to do is edit the logindetails.py file in the PSM\PythonScripts folder.
+		
+		This is managed automaticatlly if you have used the manage_script.sh to set the enviroment varibles. 
+		If not you need to create in the PSM\PythonScripts folder a file called logindetails.py
+			
+			Contents Example:
+			PSM_IP = 'https://1.1.1.1'
+			username = 'admin'
+			password = 'Pensando0$'
+			
+			
 		The second thing is to set the variable parameters in the CSV_example folder. - Examples give and are expect to 
-		work for most customers.
+		work for most customers and the default setup of the DPU TestDrive.
 			
 		In the PSM\PythonScripts folder are all the indervidual python scripts that are called from the shell scripts
 		
@@ -420,8 +432,6 @@ psmnotes()
 		rebuild.sh - takes the taks of clean and build and runs them to reset all the pods.				
 							
 	
-		
-	
 	"""
 	
 	
@@ -431,7 +441,11 @@ psmnotes()
 	
 }
 
-
+clean_psm_var(){
+	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR
+	cd PSM/PythonScripts
+	rm logindetails.py
+}
 
 enviroment()
 {
@@ -452,9 +466,6 @@ enviroment()
 
 	# Configure PSM IP
 	configure_psm_ip
-	
-	# Configure PSM url
-	configure_psm_url
 	
 	# Configure PSM user and password
 	configure_psm_user
@@ -656,7 +667,7 @@ setup_bashrc_sourcing() {
 
 
 configure_git_repo() {
-  read -p "Enter the gitrepo eg: https://github.com/tdmakepeace/DPU_TestDrive : " git_repo
+  read -p "Enter the gitrepo eg: https://github.com/tdmakepeace/DPU_TestDrive.git : " git_repo
   update_env_var "GIT_REPO" "$git_repo"
 
 }
@@ -671,7 +682,7 @@ configure_root_dir() {
 # Function to configure DPU Tesdrive Dir
 configure_dpu_dir() {
 	echo "Enter the full path of the DPU testdrive directory:"
-  read -p "Example: DSM_TestDrive: " dpu_dir
+  read -p "Example: DPU_TestDrive: " dpu_dir
   update_env_var "DPUTD_INSTALL_DIR" "$dpu_dir"
 }
 
@@ -679,15 +690,15 @@ configure_dpu_dir() {
 # Function to configure PSM IP
 configure_psm_ip() {
   read -p "Enter the IP address of the PSM server: " psm_ip
-  update_env_var "PSM_IP" "$psm_ip"
+  update_env_var "PSM_URL" "https://$psm_ip"
 }
 
-# Function to configure PSM URL
-configure_psm_url() {
-		echo "Enter the full PSM URL:"
-  read -p "Example https://1.1.1.1/: " psm_url
-  update_env_var "PSM_URL" "$psm_url"
-}
+## Function to configure PSM URL
+#configure_psm_url() {
+#		echo "Enter the full PSM URL:"
+#  read -p "Example https://1.1.1.1/: " psm_url
+#  update_env_var "PSM_URL" "$psm_url"
+#}
 
 # Function to configure PSM user
 configure_psm_user() {
@@ -760,7 +771,7 @@ verify_environment() {
     case $choice in
       1) configure_root_dir && configure_dpu_dir ;;
       # 2) configure_psm_ip ;;
-      2) configure_psm_url ;;
+      2) configure_psm_ip ;;
       3) get_network_interfaces && select_interface ;;
       4) configure_psm_user ;;
       5) configure_psm_password ;;
@@ -771,7 +782,6 @@ verify_environment() {
          configure_root_dir 
          configure_dpu_dir 
          configure_psm_ip 
-         configure_psm_url 
          get_network_interfaces && select_interface 
          configure_psm_user 
          configure_psm_password 
@@ -808,7 +818,7 @@ do
   
   
   "
-  echo "
+  echo -e "
 ### This script has been build to set up the enviroment for the TestDrive Management and is based on a default Ubuntu 22.04/24.04 servers install.                 ###
 ### The only packages needing to be installed as part of the deployment of the Ubuntu servers is openSSH.                                                          ###
 ###                                                                                                                                                                ###
@@ -820,19 +830,23 @@ do
 
 If the ELK stack has not been installed, exit the script and deploy the ELK stack by running the single script installer. At minimun the base option of the ELK install needs to have been completed.
 
-\"
+\e[0;31m
 
 wget -O ELK_Install_Ubuntu_script.sh  https://raw.githubusercontent.com/tdmakepeace/ELK_Single_script/refs/heads/main/ELK_Install_Ubuntu_script.sh && chmod +x ELK_Install_Ubuntu_script.sh  &&  ./ELK_Install_Ubuntu_script.sh
 
-\"
+\e[1;33m
 
 Options for this setup need to be followed one by one :
-
+\e[0m
 E - Setup the enviromental variables. (directory, PSM details, Axis Details)
 D - Download and clone the Git repo for the testdrive. 
 B - Base setup of the powershell enviroment.
 I - Install the modules required in powershell.
 
+\e[1;33m
+Other options:
+\e[0m
+C - Change the enviromental variables. (directory, PSM details, Axis Details)
 
 R - Read notes on using the VMware scripts manually. 
 P - Read notes on using the PSM scripts manaually. 
@@ -842,7 +856,7 @@ x - to exit
   		
   	"
 	echo "E or D or B or I"
-	echo "R or P"
+	echo "C or R or P"
 	read x
   x=${x,,}
   
@@ -878,10 +892,15 @@ This should be a one off process do not repeat unless you have cancelled it for 
 					enviroment
 					read -p "Logout and then backin to use the enviroment variables."
 					break
+		elif [  $x ==  "c" ]; then
+					verify_environment
+					clean_psm_var
+					read -p "Logout and then backin to use the enviroment variables."
+					break
+		
 		elif [  $x ==  "r" ]; then
-					runnotes
-					
-										
+					esxnotes
+												
 		elif [  $x ==  "p" ]; then
 					psmnotes
 					
