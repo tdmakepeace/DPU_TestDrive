@@ -752,8 +752,9 @@ verify_environment() {
   if [ ! -z "$AXIS_KEY" ]; then
     echo "AXIS_KEY=*******" # Don't display the actual cookie
   fi
-  echo "AXIS_WORKGROUP=$AXIS_WORKGROUP"
-
+  if [ ! -z "$AXIS_WORKGROUP" ]; then
+    echo "AXIS_WORKGROUP=$AXIS_WORKGROUP"
+  fi
 
   echo -e "\nAre these values correct? (y/n): "
   read confirm
