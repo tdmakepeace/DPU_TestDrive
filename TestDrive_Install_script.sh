@@ -804,6 +804,14 @@ verify_environment() {
 }
 
 
+gitrefesh()
+{
+	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/
+	git pull
+	read -p "Repo status is updated - enter to continue"
+}
+
+
 testcode()
 {
 		echo " 
@@ -851,6 +859,9 @@ I - Install the modules required in powershell.
 Other options:
 \e[0m
 C - Change the enviromental variables. (directory, PSM details, Axis Details)
+
+G - Refesh the gitrepo
+  
 
 R - Read notes on using the VMware scripts manually. 
 P - Read notes on using the PSM scripts manaually. 
@@ -902,6 +913,13 @@ This should be a one off process do not repeat unless you have cancelled it for 
 					clean_psm_var
 					read -p "Logout and then backin to use the enviroment variables."
 					break
+		
+		elif [  $x ==  "g" ]; then
+					gitrefesh
+					clean_psm_var
+					read -p "Logout and then backin to use the enviroment variables."
+					break
+		
 		
 		elif [  $x ==  "r" ]; then
 					esxnotes

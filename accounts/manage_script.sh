@@ -119,13 +119,6 @@ addintdelay()
   done
 }
 
-gitrefesh()
-{
-	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/
-	git pull
-	read -p "Repo status is updated - enter to continue"
-}
-
 
 
 while true ;
@@ -182,8 +175,6 @@ clear
   
   Setup and build the first PSM config     -  p
   (networking/users/vrf/pods, etc - one off process)
-  
-  Refesh the gitrepo                       - r
     
   "
     
