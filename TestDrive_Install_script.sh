@@ -808,6 +808,14 @@ gitrefesh()
 {
 	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/
 	git pull
+	cd accounts
+	chmod +x *.sh
+	cd ../axis
+	chmod +x *.sh
+	cd ../PSM
+	chmod +x *.sh
+	cd 
+		
 	read -p "Repo status is updated - enter to continue"
 }
 
