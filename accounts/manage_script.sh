@@ -201,7 +201,7 @@ clear
   
   echo " 	 
 	 
-	 o or p or r
+	 o or p
 	 
 	 or x for exit "
 	read x

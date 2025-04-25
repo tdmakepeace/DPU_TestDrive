@@ -871,7 +871,7 @@ x - to exit
   		
   	"
 	echo "E or D or B or I"
-	echo "C or R or P"
+	echo "C or G or R or P"
 	read x
   x=${x,,}
   
