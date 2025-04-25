@@ -894,6 +894,7 @@ This should be a one off process do not repeat unless you have cancelled it for 
 					break
 		elif [  $x ==  "e" ]; then
 					enviroment
+					clean_psm_var
 					read -p "Logout and then backin to use the enviroment variables."
 					break
 		elif [  $x ==  "c" ]; then
