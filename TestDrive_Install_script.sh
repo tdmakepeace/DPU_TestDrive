@@ -79,6 +79,7 @@ download()
 		git pull
 		
 		cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR
+		chmod +x *.sh
 		cd accounts
 		chmod +x *.sh
 		cd ../axis
