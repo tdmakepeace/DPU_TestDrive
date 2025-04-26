@@ -1,0 +1,13 @@
+[
+    {
+        "meta": {
+            "name": "readonly_binding"
+        },
+        "spec": {
+            "users": [
+                "readonly"
+            ],
+            "role": "readonly"
+        }
+    }
+]

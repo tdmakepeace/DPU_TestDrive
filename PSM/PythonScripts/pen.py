@@ -456,3 +456,34 @@ def delete_psm_user(psm_ip, session, data):
     # print("\"",stripurl,"\"")
 
     return delete_web_call(stripurl, session)    
+    
+
+def create_psm_workload(psm_ip, session, jdata):
+
+    url = psm_ip + '/configs/workload/v1/tenant/default/workloadgroups'
+
+    return post_web_call(url, session, jdata)
+    
+def delete_psm_workload(psm_ip, session, data):
+
+    url = psm_ip + '/configs/workload/v1/tenant/default/workloadgroups/'+ data
+    stripurl = url.strip()
+    # print("\"",stripurl,"\"")
+
+    return delete_web_call(stripurl, session)    
+
+
+def create_psm_ipcollection(psm_ip, session, jdata):
+
+    url = psm_ip + '/configs/network/v1/tenant/default/ipcollections'
+
+    return post_web_call(url, session, jdata)
+    
+def delete_psm_ipcollection(psm_ip, session, data):
+
+    url = psm_ip + '/configs/network/v1/tenant/default/ipcollections/'+ data
+    stripurl = url.strip()
+    # print("\"",stripurl,"\"")
+
+    return delete_web_call(stripurl, session)    
+        

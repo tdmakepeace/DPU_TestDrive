@@ -1,0 +1,20 @@
+[
+    {
+        "meta": {
+            "name": "readonly"
+        },
+          "spec": {
+    "permissions": [
+      {
+        "resource-tenant": null,
+        "resource-group": "_All_",
+        "resource-kind": "_All_",
+        "resource-namespace": "_All_",
+        "actions": [
+          "read"
+        ]
+      }
+    ]
+  }
+}
+]

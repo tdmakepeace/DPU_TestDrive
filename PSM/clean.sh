@@ -30,7 +30,8 @@ python3 user.py ../CSV_example/user.csv
 python3 vrf.py ../CSV_example/vrf.csv
 python3 policy_FIRST.py ../CSV_example/policy_FIRST.csv
 python3 policy_NEW.py ../CSV_example/policy_NEW.csv
-# python3 workloadgroup.py ../CSV_example/workloadgroup.csv
+python3 workload.py ../CSV_example/workload.csv
+python3 ipcollection.py ../CSV_example/ipcollection.csv
 
 sleep 5 
 python3 deleterolebinding.py rolebinding_list.txt
@@ -40,7 +41,13 @@ python3 deletenetworks.py networks_list.txt
 python3 deletevrf.py vrf_list.txt
 python3 deletepolicy.py policy_FIRST_list.txt
 python3 deletepolicy.py policy_NEW_list.txt
-# python3 deleteworkloadgroup.py workloadgroup_list.txt
+python3 deleteworkload.py workload_list.txt
+python3 deleteipcollection.py ipcollection_list.txt
+
+python3 deleterolebinding.py readonlybinding_list.readonly
+python3 deleterole.py readonlyrole_list.readonly
+python3 deleteuser.py readonlyuser_list.readonly
+
 
 sleep 2
 rm *.txt

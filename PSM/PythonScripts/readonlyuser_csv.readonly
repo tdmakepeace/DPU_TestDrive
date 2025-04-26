@@ -1,0 +1,18 @@
+[
+    {
+        "meta": {
+            "name": "readonly"
+        },
+        "spec": {
+            "fullname": "readonly",
+            "email": "readonly@amd.com",
+            "password": "Pensando0$",
+            "type": "local"
+        },
+        "status": {
+            "authenticators": [
+                "local"
+            ]
+        }
+    }
+]
