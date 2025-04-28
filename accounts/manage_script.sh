@@ -37,6 +37,25 @@ setuppsm()
  ./build.sh
 } 
 
+setupelk()
+{
+	
+ cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/
+curl -u $ELK_USER:$ELK_PASS -X POST "http://localhost:9200/_security/role/CX10K-readonly" -H 'Content-Type: application/json' -d '{"cluster": [],"indices": [{"names": [  "pens*"],"privileges": [  "read"],"allow_restricted_indices": false}],"applications": [{"application": "kibana-.kibana","privileges": [  "feature_dashboard.read",  "feature_visualize.read"],"resources": [  "space:default"]}],"run_as": [],"metadata": {},"transient_metadata": {"enabled": true}}'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://localhost:9200/_security/user/vrf1_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf1_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://localhost:9200/_security/user/vrf2_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf2_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://localhost:9200/_security/user/vrf3_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf3_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://localhost:9200/_security/user/vrf4_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf4_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://localhost:9200/_security/user/vrf5_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf5_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://localhost:9200/_security/user/vrf6_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf6_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://localhost:9200/_security/user/vrf7_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf7_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://localhost:9200/_security/user/vrf8_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf8_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://localhost:9200/_security/user/vrf9_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf9_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://localhost:9200/_security/user/vrf10_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf10_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+
+} 
+
+
 psmpod()
 {
  cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/PSM   
@@ -175,6 +194,9 @@ clear
   
   Setup and build the first PSM config     -  p
   (networking/users/vrf/pods, etc - one off process)
+  
+  Setup and build the first ELK config     -  q
+  
     
   "
     
@@ -260,7 +282,7 @@ clear
 			gitrefesh
 		
 		elif [  $x ==  "q" ]; then
-				break
+				setupelk
 		elif [  $x ==  "x" ]; then
 				break
 

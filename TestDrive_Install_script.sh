@@ -446,9 +446,21 @@ psmnotes()
 }
 
 clean_psm_var(){
-	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR
-	cd PSM/PythonScripts
-	rm logindetails.py
+
+    if [ -d "/$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR" ]; then
+    		cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR
+
+        if [ -d "PSM/PythonScripts" ]; then
+        		cd PSM/PythonScripts
+        		rm logindetails.py
+            echo "cleaned historical login details"
+        else
+        		echo "fresh install"
+        fi
+    else
+        echo "/$rootfolder does not exist, creating it"
+        create_rootfolder
+    fi
 }
 
 enviroment()
@@ -477,10 +489,16 @@ enviroment()
 	
 	# Configure AXIS key
 	configure_axis_key
-	
+
 	# Configure AXIS workgroup
 	configure_axis_workgroup
-
+	
+	# Configure ELK user
+	configure_elk_user
+	
+	# Configure ELK password
+	configure_elk_pass
+	
 	# Configure network interface and IP
 	get_network_interfaces
 	select_interface
@@ -735,6 +753,28 @@ configure_axis_workgroup() {
   update_env_var "AXIS_WORKGROUP" "$api_wg"
 }
 
+configure_elk_ip()
+{
+	echo "Enter the IP of the ELK enviroment :"
+  echo "This is the real IP not loopback: "
+  read -p "IP :" elk_ip
+  update_env_var "ELK_IP" "$elk_ip"
+}
+
+# Configure ELK user
+configure_elk_user()
+{
+  read -p "Enter the username of the ELK eg.admin:" elk_user
+  update_env_var "ELK_USER" "$elk_user"
+	}
+	
+# Configure ELK password
+configure_elk_pass()
+{
+  read -p "Enter the password:" elk_pass
+  update_env_var "ELK_PASS" "$elk_pass"
+	}
+	
 
 
 # Function to display and verify all environment variables
@@ -748,8 +788,16 @@ verify_environment() {
   echo "PSM_URL=$PSM_URL"
   echo "NODE_IP=$NODE_IP"
   echo "PSM_USER=$PSM_USER"
+  if [ ! -z "$PSM_PASSWORD" ]; then
+    echo "PSM_PASSWORD=*******" # Don't display the actual cookie
+  fi
   echo "GIT_REPO=$GIT_REPO"
-  echo "PSM_PASSWORD=*******" # Don't display the actual password
+  echo "ELK_IP=$ELK_IP"
+  echo "ELK_USER=$ELK_USER"
+  if [ ! -z "$ELK_PASS" ]; then
+    echo "ELK_PASS=*******" # Don't display the actual cookie
+  fi
+
   if [ ! -z "$AXIS_KEY" ]; then
     echo "AXIS_KEY=*******" # Don't display the actual cookie
   fi
@@ -763,34 +811,35 @@ verify_environment() {
   if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
     echo "Which variable would you like to update?"
     echo "1. DPUTD_INSTALL_DIR"
-    # echo "2. PSM_IP"
-    echo "2. PSM_URL"
+    echo "2. PSM"
     echo "3. NODE_IP"
-    echo "4. PSM_USER"
-    echo "5. PSM_PASSWORD"
-    echo "6. AXIS_KEY"
-    echo "7. AXIS_WORKGROUP"
-    echo "8. GIT_REPO"
+    echo "4. ELK"
+    echo "5. AXIS_KEY"
+    echo "6. AXIS_WORKGROUP"
+    echo "7. GIT_REPO"
+    echo 
     echo "10. All of them"
     read -p "Enter your choice (1-5): " choice
 
     case $choice in
       1) configure_root_dir && configure_dpu_dir ;;
       # 2) configure_psm_ip ;;
-      2) configure_psm_ip ;;
+      2) configure_psm_ip &&  configure_psm_user && configure_psm_password ;;
       3) get_network_interfaces && select_interface ;;
-      4) configure_psm_user ;;
-      5) configure_psm_password ;;
-      6) configure_axis_key ;;
-      7) configure_axis_workgroup ;;
-      8) configure_git-repo ;;
+      4) configure_elk_ip && configure_elk_user && configure_elk_pass ;;
+      5) configure_axis_key ;;
+      6) configure_axis_workgroup ;;
+      7) configure_git-repo ;;
       10) 
          configure_root_dir 
          configure_dpu_dir 
-         configure_psm_ip 
          get_network_interfaces && select_interface 
+         configure_psm_ip 
          configure_psm_user 
          configure_psm_password 
+         configure_elk_ip 
+         configure_elk_user 
+         configure_elk_pass
          configure_axis_key 
          configure_axis_workgroup 
          configure_git_repo

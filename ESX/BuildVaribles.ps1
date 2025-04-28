@@ -32,7 +32,7 @@ $VmDS = Read-Host "Enter the name of the distributed switch you want to create e
 $TagCategoryname = Read-Host "Enter the of the TAG catogary to be used for the workload grouping. eg. Demo"
 $Workloadgroupname = Read-Host "Enter the of the TAG catogary to be used for the VRF grouping eg. VRFs"
 $VRFpool = Read-Host "Enter the number of VRFs you want to create eg. 3"
-$VRFimages = Read-Host "Enter the number of workloads per VRF you want to create eg. 3"
+$VRFimages = Read-Host "Enter the number of workloads per VRF you want to create eg. 5"
 
 
 $VRFResPool = @()
