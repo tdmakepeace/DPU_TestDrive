@@ -19,7 +19,7 @@ Run the installation script using the following command:
     
 There is a dependency on the OS being setup with minimun packages. We recommend that the base option from the Pensando_Tools repo is run first.
 
-    wget -O Install_pensando_tools  https://raw.githubusercontent.com/tdmakepeace/pensando-tools/refs/heads/main/Install_pensando_tools.sh && chmod +x Install_pensando_tools  &&  ./Install_pensando_tools
+    wget -O Install_pensando_tools.sh  https://raw.githubusercontent.com/tdmakepeace/pensando-tools/refs/heads/main/Install_pensando_tools.sh && chmod +x Install_pensando_tools.sh  &&  ./Install_pensando_tools.sh
 
 
 If you have any questions talk to your SE first.
