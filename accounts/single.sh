@@ -116,7 +116,16 @@ do
   
  	if  [ $x -gt 0 ]; then
 
-		pass=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c11)\$
+		read -p "[D]efault or [R]andom :" passtype
+		passtype=${passtype,,}
+		if  [ $passtype == "d" ]; then
+			pass=Pensando0$
+		elif [ $passtype == "r" ]; then
+			pass=$(< /dev/urandom tr -dc 'A-Za-z0-9' | head -c11)\$
+		else 
+			pass=Pensando0$
+		fi 
+		
 		# echo $pass
 		id=$x
 		user="vrf"$id"_user"
