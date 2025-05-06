@@ -101,8 +101,11 @@ echo "$allusers" | jq -c '.[]' | while read -r item; do
     userName=$(echo "$item" | jq -r '.userName')
         email=$(echo "$item" | jq -r '.email')
 #    id=$(echo "$item" | jq -r '.id')
+    expiration=$(echo "$item" | jq -r '.expiration')
     ((i++))
-    echo "$i. userName: $userName		Email: $email		" #		 id: $id"
+    if [ "$expiration" != "null" ]  ; then 
+    echo "$i. userName: $userName		Email: $email	 expiration: $expiration"
+  	fi 
     done
 
 
@@ -192,7 +195,7 @@ do
 						  
 
 				elif [  $x ==  "x" ]; then
-						break
+					break
 
 
 		  	else

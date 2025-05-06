@@ -155,7 +155,10 @@ updateuser()
     expiration=$(echo "$item" | jq -r '.expiration')
     id=$(echo "$item" | jq -r '.id')
     ((i++))
-    echo "$i. userName: $userName		Email: $email		 expiration: $expiration"
+    if [ "$expiration" != "null" ]  ; then 
+    echo "$i. userName: $userName		Email: $email	 expiration: $expiration"
+  	fi 
+    
 	done
 
 
@@ -254,7 +257,9 @@ echo "$allusers" | jq -c '.[]' | while read -r item; do
     #id=$(echo "$item" | jq -r '.id')
     expiration=$(echo "$item" | jq -r '.expiration')
     ((i++))
+    if [ "$expiration" != "null" ]  ; then 
     echo "$i. userName: $userName		Email: $email	 expiration: $expiration"
+  	fi 
 done
 
 

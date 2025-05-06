@@ -122,16 +122,18 @@ $storeDisk = Get-Datastore -VMHost $Hostesxi | where { $_.Name -eq $DataStore }
 		user: tc or root
 		password: VMware1!" 
 			
-					
+					<#
 					$vrfg = Get-Tag -Name "$vrf" -Category $Workloadgroupname
 					$workload = Get-Tag -Name $VMtag -Category $TagCategoryname
 					
 					$vms = Get-VM -name $VMclone
+					Start-Sleep -Seconds 1
 					New-TagAssignment -Tag $workload -Entity $vms	
 					New-TagAssignment -Tag $vrfg -Entity $vms
+					Start-Sleep -Seconds 1
 					Start-VM -VM $VMclone -Confirm:$false -RunAsync
 						
-						
+						#>
 						
 					Set-NetworkAdapter -NetworkAdapter ( Get-NetworkAdapter -VM $VMclone | where {$_.Name -eq "Network adapter 1" } ) -PortGroup $vdPortGroup1 -Confirm:$False
 					Set-NetworkAdapter -NetworkAdapter ( Get-NetworkAdapter -VM $VMclone | where {$_.Name -eq "Network adapter 1" } ) -connected:$true  -Confirm:$False
@@ -149,8 +151,23 @@ Start-Sleep -Seconds 30
 					$GW = "192.168."+"$netnum1"+".1"
 					$DNS = "192.168."+"$netnum1"+".1"
 					$Domain = "testdrive"
+					$VMtag = "Workload"+"$_"
 			
 					Invoke-VMScript -VM $VMclone -ScriptText "sudo /opt/set-ipv4-address.sh $VMIP $MASK $BCAST $GW $DNS $Domain" -GuestUser "root" -GuestPassword "VMware1!"
+					
+					
+					$vrfg = Get-Tag -Name "$vrf" -Category $Workloadgroupname
+					$workload = Get-Tag -Name $VMtag -Category $TagCategoryname
+					
+					$vms = Get-VM -name $VMclone
+					Start-Sleep -Seconds 1
+					New-TagAssignment -Tag $workload -Entity $vms	
+					New-TagAssignment -Tag $vrfg -Entity $vms
+					Start-Sleep -Seconds 1
+					Start-VM -VM $VMclone -Confirm:$false -RunAsync
+						
+						
+
 		}
 				
 
