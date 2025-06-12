@@ -71,8 +71,8 @@ Set-Content -Path TestDrive.ps1 -Value "
 `$Global:Workloadgroupname=`"$Workloadgroupname`"
 `$Global:VRFResPool=`@($VRFResPool)
 `$Global:VRFworkloads=`@($VRFworkloads)	
-`$Global:BASE_VLAN=`@($BASE_VLAN) 
-`$Global:PVLAN_ADD=`@($PVLAN_ADD)
+`$Global:BASE_VLAN=`$BASE_VLAN 
+`$Global:PVLAN_ADD=`$PVLAN_ADD
 
 " 
 

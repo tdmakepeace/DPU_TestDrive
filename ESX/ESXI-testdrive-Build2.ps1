@@ -208,7 +208,9 @@ $permission = New-VIPermission -Role Role -Principal Administrator -Entity (Get-
 $VRFResPool | ForEach-Object {
 
     $netnum = 10 * $_
+    $netnum = $netnum + $basevlan
     $netnum1 = $netnum + 1
+    
 		  
 		 
 		$VRFworkloads | ForEach-Object {

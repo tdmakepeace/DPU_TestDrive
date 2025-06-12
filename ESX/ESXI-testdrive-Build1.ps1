@@ -87,7 +87,7 @@ $VRFResPool | ForEach-Object {
 		$vrfg = New-Tag -Name "$vrf" -Category $Workloadgroup
 		
     $netnum = 10 * $_
-    $netnum = $netnum + $basevlan
+    $netnum = $netnum+$basevlan
     $netnum1 = $netnum + 1
     $netnum2 = $netnum + 2
     $netnum3 = $netnum + 3
