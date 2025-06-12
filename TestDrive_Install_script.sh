@@ -450,7 +450,7 @@ clean_psm_var(){
     if [ -d "/$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR" ]; then
     		cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR
 
-        if [ -d "PSM/PythonScripts" ]; then
+        if [ -e "PSM/PythonScripts/logindetails.py" ]; then
         		cd PSM/PythonScripts
         		rm logindetails.py
             echo "cleaned historical login details"
