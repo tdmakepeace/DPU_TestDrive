@@ -33,7 +33,10 @@ $TagCategoryname = Read-Host "Enter the of the TAG catogary to be used for the w
 $Workloadgroupname = Read-Host "Enter the of the TAG catogary to be used for the VRF grouping eg. VRFs"
 $VRFpool = Read-Host "Enter the number of VRFs you want to create eg. 3"
 $VRFimages = Read-Host "Enter the number of workloads per VRF you want to create eg. 5"
-$BASE_VLAN = Read-Host "Enter the Base VLAN_ID eg.(10)means we will use from 11:"
+echo "The following Base_VLAN and PVLAN_Add must match what you previously configured in the setup script"
+echo "if in doubt, type \"echo \$BASE_VLAN\" and \"echo \$PVLAN_ADD\""
+echo " if no reply, did you run the option \"e\" in the setup script, and have you logged out and in to update the local variables."
+$BASE_VLAN = Read-Host "Enter the Base VLAN_ID eg.(0)means we will use from 11:"
 $PVLAN_ADD = Read-Host "Enter the addition for the PVLAN_ID eg.(1000) means we will use from 1011:"
 	
 	

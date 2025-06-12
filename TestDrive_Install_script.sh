@@ -770,12 +770,24 @@ configure_elk_pass()
 	
 configure_basevlan()
 {
-	read -p "Enter the Base VLAN_ID eg.(10)means we will use from 11:" basevlan
+	echo "The way the VLAN allocation is performed is based on a Vrf id * 10"
+  echo "Then +1 , + 2 , +3 etc... for the number of VLAN you select,"
+  echo "so entering 0 with start at 11."
+  echo "so entering 3100 with start at 3111."
+  
+  read -p "Enter the Base VLAN_ID eg.(0)means we will start from 11:" basevlan
   update_env_var "BASE_VLAN" "$basevlan"
 	}
 	
 configure_pvlanadd()
 {
+	echo "The PVLAN add, is a direct numeric add to the primary."
+  echo "so entering 1000, and the base set at 0 the isolation VLAN is 1011."
+  echo "so entering 100, and the base set at 3100 the isolation VLAN is 3211."
+  echo ""
+  echo "We need to maintain uniqueness "
+  
+	
 	read -p "Enter the addition for the PVLAN_ID eg.(1000) means we will use from 1011:" pvlanadd
   update_env_var "PVLAN_ADD" "$pvlanadd"
 	}
