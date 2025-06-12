@@ -196,7 +196,8 @@ $permission = New-VIPermission -Role Role -Principal Administrator -Entity (Get-
 }
 
 
-
+		$viuser = "VSPHERE.LOCAL\readonly"
+		Get-Datacenter -Name $DCName |New-VIPermission -Role Read-only -Principal $viuser
 
 
 
