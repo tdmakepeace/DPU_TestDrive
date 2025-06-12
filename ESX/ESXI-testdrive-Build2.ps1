@@ -39,7 +39,8 @@ echo $location
 ## Create the local resource pools for each 
 
 $storeDisk = Get-Datastore -VMHost $Hostesxi | where { $_.Name -eq $DataStore }
-
+$basevlan = $BASE_VLAN
+$pvlanadd = $PVLAN_ADD
 
 # Loop through each item in the array using ForEach-Object
 $VRFResPool | ForEach-Object {
@@ -53,13 +54,14 @@ $VRFResPool | ForEach-Object {
 		
     Write-Host "Resource Pool Created: $vrf"
     $netnum = 10 * $_
+    $netnum = $netnum + $basevlan
     $netnum1 = $netnum + 1
     $netnum2 = $netnum + 2
     $netnum3 = $netnum + 3
     
-    $privnum1 = 1000 + $netnum1
-    $privnum2 = 1000 + $netnum2
-    $privnum3 = 1000 + $netnum3
+    $privnum1 = $pvlanadd + $netnum1
+    $privnum2 = $pvlanadd + $netnum2
+    $privnum3 = $pvlanadd + $netnum3
     
     $VmInt1 = "$netnum1"+"_"+"$privnum1"+"_PRO"
     $VmInt2 = "$netnum1"+"_"+"$privnum1"+"_ISO"

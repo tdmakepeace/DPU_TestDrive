@@ -52,18 +52,26 @@ else {
 	}
 
 
-
-
+$basevlan = $BASE_VLAN
+$pvlanadd = $PVLAN_ADD
 
 ################################################## (End of EDIT to Suit Customer Enviroment) ##################################################
 
 
-		$vrf = "VRF"+"$reset"
-		$netnum = 10 * $reset
+
+    $netnum = 10 * $_
+    $netnum = $netnum + $basevlan
     $netnum1 = $netnum + 1
-    $privnum = 1000 + $netnum
-    $VmInt1 = "$netnum"+"_"+"$privnum"+"_PRO"
-    $VmInt2 = "$netnum"+"_"+"$privnum"+"_ISO"
+    $netnum2 = $netnum + 2
+    $netnum3 = $netnum + 3
+    
+    $privnum1 = $pvlanadd + $netnum1
+    $privnum2 = $pvlanadd + $netnum2
+    $privnum3 = $pvlanadd + $netnum3
+    
+    $VmInt1 = "$netnum1"+"_"+"$privnum1"+"_PRO"
+    $VmInt2 = "$netnum1"+"_"+"$privnum1"+"_ISO"
+    
 
 
 	$VRFworkloads | ForEach-Object {

@@ -31,16 +31,28 @@ connect-viserver -server $vcenter_server -User $vcenter_user -Password $vcenter_
 
 ################################################## (End of EDIT to Suit Customer Enviroment) ##################################################
 
+$basevlan = $BASE_VLAN
+$pvlanadd = $PVLAN_ADD
+
+
 # Loop through each item in the array using ForEach-Object
 $VRFResPool | ForEach-Object {
 		## create the resourcepool
 		$vrf = "VRF"+$_
-		$netnum = 10 * $_
+		
+    $netnum = 10 * $_
+    $netnum = $netnum + $basevlan
     $netnum1 = $netnum + 1
-    $privnum = 1000 + $netnum
-    $VmInt1 = "$netnum"+"_"+"$privnum"+"_PRO"
-    $VmInt2 = "$netnum"+"_"+"$privnum"+"_ISO"
-
+    $netnum2 = $netnum + 2
+    $netnum3 = $netnum + 3
+    
+    $privnum1 = $pvlanadd + $netnum1
+    $privnum2 = $pvlanadd + $netnum2
+    $privnum3 = $pvlanadd + $netnum3
+    
+    $VmInt1 = "$netnum1"+"_"+"$privnum1"+"_PRO"
+    $VmInt2 = "$netnum1"+"_"+"$privnum1"+"_ISO"
+    
 
 	$VRFworkloads | ForEach-Object {
 					$workloadnumber = 10 + $_

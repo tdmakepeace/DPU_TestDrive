@@ -33,8 +33,10 @@ $TagCategoryname = Read-Host "Enter the of the TAG catogary to be used for the w
 $Workloadgroupname = Read-Host "Enter the of the TAG catogary to be used for the VRF grouping eg. VRFs"
 $VRFpool = Read-Host "Enter the number of VRFs you want to create eg. 3"
 $VRFimages = Read-Host "Enter the number of workloads per VRF you want to create eg. 5"
-
-
+$BASE_VLAN = Read-Host "Enter the Base VLAN_ID eg.(10)means we will use from 11:"
+$PVLAN_ADD = Read-Host "Enter the addition for the PVLAN_ID eg.(1000) means we will use from 1011:"
+	
+	
 $VRFResPool = @()
 
 for ($i = 0; $i -lt $VRFpool; $i++) { 
@@ -69,6 +71,8 @@ Set-Content -Path TestDrive.ps1 -Value "
 `$Global:Workloadgroupname=`"$Workloadgroupname`"
 `$Global:VRFResPool=`@($VRFResPool)
 `$Global:VRFworkloads=`@($VRFworkloads)	
+`$Global:BASE_VLAN=`@($BASE_VLAN) 
+`$Global:PVLAN_ADD=`@($PVLAN_ADD)
 
 " 
 

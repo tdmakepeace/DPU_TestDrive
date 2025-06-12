@@ -54,7 +54,6 @@ Set-VIRole -Role TestDrive -AddPrivilege "ObjectAttachable"
 $Workloadgroup = New-TagCategory -Name $Workloadgroupname -Cardinality Multiple
 $TagCategory = New-TagCategory -Name $TagCategoryname -Cardinality Multiple
 
-
 $VRFworkloads | ForEach-Object {
 					$workloadnumber =  $_
 					$workloadtag = "Workload"+"$workloadnumber"
@@ -78,6 +77,8 @@ New-VDSwitch -Name $VmDS -Location $location  -MaxPorts 512 -NumUplinkPorts 4 -M
 # New-VDSwitch -Name $VmDS -Location $location  -MaxPorts 512 -NumUplinkPorts 4 -Mtu 9000 -LinkDiscoveryProtocol "LLDP" -LinkDiscoveryProtocolOperation Listen 
 
 $vds = Get-VDSwitch $VmDS
+$basevlan = $BASE_VLAN
+$pvlanadd = $PVLAN_ADD
 
 
 $VRFResPool | ForEach-Object {
@@ -86,13 +87,14 @@ $VRFResPool | ForEach-Object {
 		$vrfg = New-Tag -Name "$vrf" -Category $Workloadgroup
 		
     $netnum = 10 * $_
+    $netnum = $netnum + $basevlan
     $netnum1 = $netnum + 1
     $netnum2 = $netnum + 2
     $netnum3 = $netnum + 3
     
-    $privnum1 = 1000 + $netnum1
-    $privnum2 = 1000 + $netnum2
-    $privnum3 = 1000 + $netnum3
+    $privnum1 = $pvlanadd + $netnum1
+    $privnum2 = $pvlanadd + $netnum2
+    $privnum3 = $pvlanadd + $netnum3
     
     $VmInt1 = "$netnum1"+"_"+"$privnum1"+"_PRO"
     $VmInt2 = "$netnum1"+"_"+"$privnum1"+"_ISO"
