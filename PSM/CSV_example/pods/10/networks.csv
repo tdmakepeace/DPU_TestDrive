@@ -1,6 +1,0 @@
-name,virtual-router,vlan-id,ingress-security-policy,egress-security-policy,maximum-cps,maximum-sessions,connection-tracking-mode,service-bypass,ip-fragments-forwarding
-vlan101,vrf10,101,None,vrf10_vlan101_First,0,0,inherit_from_vrf,TRUE,inherit_from_vrf
-vlan102,vrf10,102,None,vrf10_vlan102_First,0,0,inherit_from_vrf,TRUE,inherit_from_vrf
-vlan103,vrf10,103,None,vrf10_vlan103_First,0,0,inherit_from_vrf,TRUE,inherit_from_vrf
-vlan104,vrf10,104,None,vrf10_vlan104_First,0,0,inherit_from_vrf,TRUE,inherit_from_vrf
-vlan105,vrf10,105,None,vrf10_vlan105_First,0,0,inherit_from_vrf,TRUE,inherit_from_vrf

@@ -8,4 +8,3 @@ vrf6role,vrf6role_binding,vrf6_user,vrf6,vlan6,vrf6_vlan6
 vrf7role,vrf7role_binding,vrf7_user,vrf7,vlan7,vrf7_vlan7
 vrf8role,vrf8role_binding,vrf8_user,vrf8,vlan8,vrf8_vlan8
 vrf9role,vrf9role_binding,vrf9_user,vrf9,vlan9,vrf9_vlan9
-vrf10role,vrf10role_binding,vrf10_user,vrf10,vlan10,vrf10_vlan10

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd PythonScripts
-
 
 cd PythonScripts
 
