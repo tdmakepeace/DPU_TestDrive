@@ -450,13 +450,16 @@ clean_psm_var(){
     if [ -d "/$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR" ]; then
     		cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR
 
-        if [ -e "PSM/PythonScripts/logindetails.py" ]; then
+        if [ -d "PSM/PythonScripts" ]; then
         		cd PSM/PythonScripts
         		rm logindetails.py
             echo "cleaned historical login details"
         else
         		echo "fresh install"
         fi
+    else
+        echo "/$rootfolder does not exist, creating it"
+        create_rootfolder
     fi
 }
 
@@ -489,7 +492,10 @@ enviroment()
 
 	# Configure AXIS workgroup
 	configure_axis_workgroup
-	
+
+	# Configure ELK IP
+	configure_elk_ip
+		
 	# Configure ELK user
 	configure_elk_user
 	
@@ -499,9 +505,7 @@ enviroment()
 	# Configure network interface and IP
 	get_network_interfaces
 	select_interface
-	configure_basevlan
-	configure_pvlanadd 
-	
+
 	# Setup .local/bin directory
 	setup_local_bin
 
@@ -510,6 +514,12 @@ enviroment()
 	
 	# Source .bashrc.local to get all environment variables
 	source "$HOME/.bashrc.local"
+
+	# Check if PSM_IP is set, if not run the configuration again
+	if [ -z "$PSM_IP" ]; then
+	  configure_psm_ip
+	  source "$HOME/.bashrc.local"
+	fi
 
 	# Source .bashrc.local again to ensure all variables are set
 	source "$HOME/.bashrc.local"
@@ -768,29 +778,7 @@ configure_elk_pass()
   update_env_var "ELK_PASS" "$elk_pass"
 	}
 	
-configure_basevlan()
-{
-	echo "The way the VLAN allocation is performed is based on a Vrf id * 10"
-  echo "Then +1 , + 2 , +3 etc... for the number of VLAN you select,"
-  echo "so entering 0 with start at 11."
-  echo "so entering 3100 with start at 3111."
-  
-  read -p "Enter the Base VLAN_ID eg.(0)means we will start from 11:" basevlan
-  update_env_var "BASE_VLAN" "$basevlan"
-	}
-	
-configure_pvlanadd()
-{
-	echo "The PVLAN add, is a direct numeric add to the primary."
-  echo "so entering 1000, and the base set at 0 the isolation VLAN is 1011."
-  echo "so entering 100, and the base set at 3100 the isolation VLAN is 3211."
-  echo ""
-  echo "We need to maintain uniqueness "
-  
-	
-	read -p "Enter the addition for the PVLAN_ID eg.(1000) means we will use from 1011:" pvlanadd
-  update_env_var "PVLAN_ADD" "$pvlanadd"
-	}
+
 
 # Function to display and verify all environment variables
 verify_environment() {

@@ -12,7 +12,7 @@ vmware()
 	
 	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/ESX/
 
-	pwsh ./ESXI-Password.ps1 -pass "$1"  -vrf $2
+	sudo pwsh ./ESXI-Password.ps1 -pass "$1"  -vrf $2
 
 # pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 1
 
@@ -32,10 +32,10 @@ JSON_STRING=$( jq -n \
 	
 	echo $JSON_STRING
 	
-  url="http://localhost:9200/_security/user/$userName?pretty"
+  url="http://$ELK_IP:9200/_security/user/$userName?pretty"
   echo $url
   
-  response=$(curl --write-out '%{http_code}\n' -v -u elastic:changeme $url -H 'Content-Type: application/json' -d "$JSON_STRING" )
+  response=$(curl --write-out '%{http_code}\n' -v -u $ELK_USER:$ELK_PASS $url -H 'Content-Type: application/json' -d "$JSON_STRING" )
 	echo "Response from: $response"
 
 

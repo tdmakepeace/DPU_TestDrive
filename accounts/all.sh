@@ -5,18 +5,18 @@
 vmware()
 {
 	
-	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/accounts/
+	cd /$ROOT_INSTALL_DIR/$DPUTD_INSTALL_DIR/ESX/
 
-	pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 1
-	pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 2
-	pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 3
-	pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 4
-	pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 5
-	pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 6
-	pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 7
-	pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 8
-	pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 9
-	pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 10
+	sudo pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 1
+	sudo pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 2
+	sudo pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 3
+	sudo pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 4
+	sudo pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 5
+	sudo pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 6
+	sudo pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 7
+	sudo pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 8
+	sudo pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 9
+	sudo pwsh ./ESXI-Password.ps1 -pass "Pensando0$"  -vrf 10
 	
 	
 }
@@ -24,16 +24,16 @@ vmware()
 elk()
 {
 	
-curl -u $elkuser:$elkpass -X POST "http://localhost:9200/_security/user/vrf1_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf1_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
-curl -u $elkuser:$elkpass -X POST "http://localhost:9200/_security/user/vrf2_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf2_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
-curl -u $elkuser:$elkpass -X POST "http://localhost:9200/_security/user/vrf3_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf3_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
-curl -u $elkuser:$elkpass -X POST "http://localhost:9200/_security/user/vrf4_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf4_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
-curl -u $elkuser:$elkpass -X POST "http://localhost:9200/_security/user/vrf5_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf5_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
-curl -u $elkuser:$elkpass -X POST "http://localhost:9200/_security/user/vrf6_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf6_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
-curl -u $elkuser:$elkpass -X POST "http://localhost:9200/_security/user/vrf7_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf7_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
-curl -u $elkuser:$elkpass -X POST "http://localhost:9200/_security/user/vrf8_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf8_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
-curl -u $elkuser:$elkpass -X POST "http://localhost:9200/_security/user/vrf9_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf9_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
-curl -u $elkuser:$elkpass -X POST "http://localhost:9200/_security/user/vrf10_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf10_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://$ELK_IP:9200/_security/user/vrf1_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf1_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://$ELK_IP:9200/_security/user/vrf2_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf2_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://$ELK_IP:9200/_security/user/vrf3_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf3_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://$ELK_IP:9200/_security/user/vrf4_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf4_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://$ELK_IP:9200/_security/user/vrf5_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf5_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://$ELK_IP:9200/_security/user/vrf6_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf6_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://$ELK_IP:9200/_security/user/vrf7_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf7_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://$ELK_IP:9200/_security/user/vrf8_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf8_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://$ELK_IP:9200/_security/user/vrf9_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf9_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
+curl -u $ELK_USER:$ELK_PASS -X POST "http://$ELK_IP:9200/_security/user/vrf10_user?pretty" -H 'Content-Type: application/json' -d '{"username": "vrf10_user", "roles": [ "CX10K-readonly" ], "password" : "Pensando0$", "full_name": "",  "email": "",  "metadata": {}, "enabled": true   }'
 
 
 }
