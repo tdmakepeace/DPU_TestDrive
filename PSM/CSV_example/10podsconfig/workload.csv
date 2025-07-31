@@ -1,0 +1,16 @@
+name,tag,value
+Workload1,com.amd.vcenter.Demo,Workload1
+Workload2,com.amd.vcenter.Demo,Workload2
+Workload3,com.amd.vcenter.Demo,Workload3
+Workload4,com.amd.vcenter.Demo,Workload4
+Workload5,com.amd.vcenter.Demo,Workload5
+VRF1_WLGROUP,com.amd.vcenter.VRFs,VRF1
+VRF2_WLGROUP,com.amd.vcenter.VRFs,VRF2
+VRF3_WLGROUP,com.amd.vcenter.VRFs,VRF3
+VRF4_WLGROUP,com.amd.vcenter.VRFs,VRF4
+VRF5_WLGROUP,com.amd.vcenter.VRFs,VRF5
+VRF6_WLGROUP,com.amd.vcenter.VRFs,VRF6
+VRF7_WLGROUP,com.amd.vcenter.VRFs,VRF7
+VRF8_WLGROUP,com.amd.vcenter.VRFs,VRF8
+VRF9_WLGROUP,com.amd.vcenter.VRFs,VRF9
+VRF10_WLGROUP,com.amd.vcenter.VRFs,VRF10
